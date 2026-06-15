@@ -60,6 +60,9 @@ cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 
 Open Jenkins in the browser under `http://<droplet-ip>:8080`, enter the initial administrator password and install the suggested plugins. After creating a first admin user, the initialization of Jenkins is done and the welcome screen is displayed.
 
+<img width="1897" height="956" alt="image" src="https://github.com/user-attachments/assets/447d9e62-f43d-4cf3-be85-43b6230dff45" />
+
+
 </details>
 
 *****
@@ -85,6 +88,9 @@ To execute maven builds or run npm tests, these tools have to be installed. Ther
 
 ### Configure Maven Plugin
 For most of the usual build tools a related plugin is already installed. For Maven this is the case too. So we just have to configure the already installed plugin.
+
+<img width="1872" height="830" alt="image" src="https://github.com/user-attachments/assets/a69909a6-6474-4577-b2d8-850c3d8616d6" />
+
 
 Go to the "Manage Jenkins" section and click on "Global Tool Configuration".
 Click on the "Add Maven" buttton, enter a name (e.g. maven-3.6) and click on "Save". Now you have the maven command available in all Jenkins jobs.
@@ -128,7 +134,12 @@ Click on "New Item" and enter a name for the new job (e.g. my-job). Select "Free
 Under the "Build" section at the bottom, select "Execute shell" from the drop down list. You can execute any shell command you would also be able to execute directly on the shell of the server/container where Jenkins is installed. Enter the command `npm --version`.\
 Add another build step from the drop down: "Invoke top-level Maven targets". Select the version (only maven-3.6 is available) and enter the "goal" `--version`. Click "Save" to save the freestyle job.
 
+<img width="1883" height="902" alt="image" src="https://github.com/user-attachments/assets/49acb89c-e875-47f9-9a10-f3db5d56fac2" />
+
+
 In the Jenkins main view (click "Jenkins" at the top left of the screen) you see the new job called "my-job". Click on it and click on "Build Now" in the menu on the left. When the build has finished, click on the build item (build number) on the bottom left and then on "Console Output" in menu on the left to see the output of the two commands (`npm --version` and `mvn --version`).
+
+<img width="1897" height="907" alt="image" src="https://github.com/user-attachments/assets/129c6253-b402-475a-a43d-9b6921f61299" />
 
 ### Plugin configuration
 In order for a tool to appear in the list of available build tools, it has to be installed as a plugin first. Go to the Jenkins main view, select "Manage Jenkins" > "Manage Plugins" > "Available" and search for 'nodejs', select it and click on "Install without restart".\
@@ -139,6 +150,9 @@ Go to "Dashboard" > "my-job" > "Configure" > "Source Code Management" and select
 
 If you run the build again and read the console output, you can see that Jenkins fetched the content of the repository before executing the build commands.
 
+<img width="1877" height="902" alt="image" src="https://github.com/user-attachments/assets/daee77ce-cffb-4407-ac17-2d220b4fd272" />
+
+
 ### Jenkins Directory Structure
 - The job related files (like for example build log files) are stored in /var/jenkins_home/jobs/my-job.
 - The sources checked out from the git repository are stored in /var/jenkins_home/workspace/my-job.
@@ -148,6 +162,9 @@ If the checked out files contain a shell script `<script-file.sh>`, it can be ex
 
 ### Run Tests and build Java Application
 Create a new freestyle job (called 'java-maven-build'). Configure the git repository URL and add two maven plugin build steps executing the goals `test` and then `package`. After the build has run, you can find the jar file under /var/jenkins_home/workspace/java-maven-build/target.
+
+<img width="1883" height="906" alt="image" src="https://github.com/user-attachments/assets/81f571a8-9427-4435-bb57-8511ea4a33d6" />
+
 
 </details>
 
