@@ -219,7 +219,13 @@ echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdi
 docker push <your/private-repo-name:version>
 ```
 
+<img width="1875" height="906" alt="image" src="https://github.com/user-attachments/assets/27588eb5-6458-4913-b5d3-1a5170e9c648" />
+
+
 Save the build configuration and run the build. Then go to your private repository on [DockerHub](https://hub.docker.com/) and check if the new image got pushed.
+
+<img width="1877" height="857" alt="image" src="https://github.com/user-attachments/assets/cba3177b-1d8d-4012-9b55-e42de7ab664c" />
+
 
 ### Push Docker Image to Nexus Repository
 Because our Nexus repository is accessible via http (not https) we have to add the "insecure-registries" configuration to the host running the Jenkins container. SSH into the droplet running the Jenkins container and create a file `/etc/docker/daemon.json` with the following content:
