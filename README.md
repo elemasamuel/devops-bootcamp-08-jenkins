@@ -228,7 +228,7 @@ Save the build configuration and run the build. Then go to your private reposito
 
 
 ### Push Docker Image to Nexus Repository
-Because our Nexus repository is accessible via http (not https) we have to add the "insecure-registries" configuration to the host running the Jenkins container. SSH into the droplet running the Jenkins container and create a file `/etc/docker/daemon.json` with the following content:
+Because our Nexus repository is accessible via http (not https) we have to add the "insecure-registries" configuration to the host running the Jenkins container. SSH into the droplet running the Jenkins container and create a file using `vim /etc/docker/daemon.json` with the following content:
 ```sh
 {
   "insecure-registries": ["<nexus-droplet-ip>:8083"]
@@ -246,6 +246,9 @@ docker exec -u 0 -it <container-id> bash
 ```
 
 To let Jenkins push images to the Nexus repository, we have to configure the credentials (as we did before for DockerHub). In the shell command we adjust the image name to `<nexus-ip:8083/image-name:version>` and add `<nexus-ip:8083>` at the end of the login command. We also have to bind the username and password environment variables with the correct credentials (and maybe rename them).
+
+<img width="1872" height="905" alt="image" src="https://github.com/user-attachments/assets/6b9a1c4a-3de3-4be7-bb3c-bf03c9669ba2" />
+
 
 </details>
 
