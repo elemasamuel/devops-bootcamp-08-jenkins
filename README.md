@@ -181,9 +181,7 @@ To do that, stop the running Jenkins container and start it again with the follo
 ```sh
 docker run -p 8080:8080 -p 50000:50000 -d \
   -v jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v $(which docker):/usr/bin/docker \
-  jenkins/jenkins:lts
+  -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
 ```
 
 Now the docker command is available in the Jenkins container too. However, the user `jenkins` (under which Jenkins is running) has no read/write permissions on the file `/var/run/docker.sock`. So we have to enter the Jenkins container as root user and provide the missing permissions to the user `jenkins`:
