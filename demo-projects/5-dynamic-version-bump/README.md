@@ -93,11 +93,11 @@ stage("Build and Publish Docker Image") {
     script {
       withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
         echo "building the docker image..."
-        sh "docker build -t fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-${IMAGE_TAG} ."
+        sh "docker build -t elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-${IMAGE_TAG} ."
                         
         echo "publishing the docker image..."
         sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
-        sh "docker push fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-${IMAGE_TAG}"
+        sh "docker push elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-${IMAGE_TAG}"
       }
     }
   }
@@ -130,7 +130,7 @@ stage('Commit Version Update') {
   steps {
     script {
       withCredentials([usernamePassword(credentialsId: 'GitHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh "git remote set-url origin https://${USERNAME}:${PASSWORD}@github.com/fsiegrist/devops-bootcamp-java-maven-app.git"
+        sh "git remote set-url origin https://${USERNAME}:${PASSWORD}@github.com/elemasamuel/devops-bootcamp-java-maven-app.git"
         sh 'git add .'
         sh 'git commit -m "jenkins: version bump'
         sh 'git push origin HEAD:main'
