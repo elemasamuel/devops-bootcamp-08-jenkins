@@ -19,7 +19,7 @@ Create a Jenkins Shared Library to extract common build logic:
 
 #### Steps to create a Git repository for the Shared Library project
 Step 1: Create repository on GitHub\
-Login to your account on [GitHub](https://github.com/fsiegrist) and create a new private repository called `devops-bootcamp-jenkins-shared-library`.
+Login to your account on [GitHub](https://github.com/elemasamuel) and create a new private repository called `devops-bootcamp-jenkins-shared-library`.
 
 Step 2: Create a project for the JSL and push it to the repository\
 Create a project called `jenkins-shared-library`, add a README file and execute the following commands:
@@ -27,7 +27,7 @@ Create a project called `jenkins-shared-library`, add a README file and execute 
 git init
 git add README.md
 git commit -m "Initial commit"
-git remote add origin https://github.com/fsiegrist/devops-bootcamp-jenkins-shared-library.git
+git remote add origin https://github.com/elemasamuel/devops-bootcamp-jenkins-shared-library.git
 git push -u origin main
 ```
 
@@ -119,7 +119,7 @@ pipeline {
     stage("Build and Publish Docker Image") {
       steps {
         script {
-          buildAndPublishImage 'fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-1.0.2'
+          buildAndPublishImage 'elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-1.0.2'
         }
       }
     }
@@ -134,7 +134,7 @@ It is not necessary to define the JSL globally in Jenkins. You can directly use 
 library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
   [
     $class: 'GitSCMSource',
-    remote: 'https://github.com/fsiegrist/devops-bootcamp-jenkins-shared-library.git',
+    remote: 'https://github.com/elemasamuel/devops-bootcamp-jenkins-shared-library.git',
     credentialsId: 'GitHub'
   ]
 )
