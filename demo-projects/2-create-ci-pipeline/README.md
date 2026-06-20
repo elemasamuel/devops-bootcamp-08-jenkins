@@ -129,7 +129,7 @@ Step 1: Create a new Freestyle Job\
 Go to "Dashboard" > "New Item", enter an item name (e.g. devops-bootcamp-freestyle), select the "Freestyle project" area and press the "Ok" button.
 
 Step 2: Connect to the application’s git repository\
-On the configuration page, go to the Source Code Management section and select "Git". Enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/fsiegrist/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1.
+On the configuration page, go to the Source Code Management section and select "Git". Enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/elemasamuel/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1.
 
 In the "Branches to build" section, enter "*/main" as branch specifier and press the "Save" button.
 
@@ -159,10 +159,10 @@ Step 5: Configure credentials for the private DockerHub repository\
 For Jenkins to be able to push images to the private DockerHub repository, we need to configure the credentials. Go to "Dashboard" > "Manage Jenkins" > "Manage Credentials" > "Stores scoped to Jenkins" > "Jenkins" > "Global credentials" > "Add credentials" and enter your DockerHub username and password and an ID (e.g. DockerHub).
 
 Step 6: Push to private DockerHub repository\
-Now go back to the Jenkins build configuration and jump to the "Build Environment" section, select "Use secret text(s) or file(s)", add a "Username and password (separated)" binding, define the names of the environment variables holding the username and password (e.g. DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD) and select the correct credentials. Now scroll down to the "Build" section (Execute shell), adjust the tag name of the applications image (`docker build -t fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-1.0.0 .`) and add commands to login and push the image to the private repository:
+Now go back to the Jenkins build configuration and jump to the "Build Environment" section, select "Use secret text(s) or file(s)", add a "Username and password (separated)" binding, define the names of the environment variables holding the username and password (e.g. DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD) and select the correct credentials. Now scroll down to the "Build" section (Execute shell), adjust the tag name of the applications image (`docker build -t elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-1.0.0 .`) and add commands to login and push the image to the private repository:
 ```sh
 echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin
-docker push fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-1.0.0
+docker push elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-1.0.0
 ```
 
 Save the build configuration and run the build ("Dashboard" > "devops-bootcamp-freestyle" > "Build Now"). Then go to your private repository on [DockerHub](https://hub.docker.com/) and check if the new image got pushed.
@@ -172,7 +172,7 @@ Step 1: Create a new Pipeline Job\
 Go to "Dashboard" > "New Item", enter an item name (e.g. devops-bootcamp-pipeline), select the "Pipeline" area and press the "Ok" button.
 
 Step 2: Connect to the application’s git repository\
-On the configuration page, go to the Pipeline section and select "Pipeline script from SCM". Select "Git" from the SCM dropdown, enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/fsiegrist/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1 of the Freestyle project above.
+On the configuration page, go to the Pipeline section and select "Pipeline script from SCM". Select "Git" from the SCM dropdown, enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/elemasamuel/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1 of the Freestyle project above.
 
 In the "Branches to build" section, enter "*/main" as branch specifier and press the "Save" button.
 
@@ -221,10 +221,10 @@ stage("Build and Publish Docker Image") {
         script {
             withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
                 echo "building the docker image..."
-                sh 'docker build -t fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-1.0.1 .'
+                sh 'docker build -t elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-1.0.1 .'
                 echo "publishing the docker image..."
                 sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
-                sh 'docker push fsiegrist/fesi-repo:devops-bootcamp-java-maven-app-1.0.1'
+                sh 'docker push elemasamuel/fesi-repo:devops-bootcamp-java-maven-app-1.0.1'
             }
         }
     }
@@ -238,7 +238,7 @@ Step 1: Create a new Multibranch Pipeline Job\
 Go to "Dashboard" > "New Item", enter an item name (e.g. devops-bootcamp-multibranch-pipeline), select the "Multibranch Pipeline" area and press the "Ok" button.
 
 Step 2: Connect to the application’s git repository\
-On the configuration page, go to the "Branch Sources" section and select "Git" from the "Add source" dropdown. Enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/fsiegrist/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1 of the Freestyle project above. Open the "Add" dropdown under "Discover branches" and select "Filter by name (with regular expression)". Enter .* to select all branches.
+On the configuration page, go to the "Branch Sources" section and select "Git" from the "Add source" dropdown. Enter the URL of the GitHub repository holding the Java Maven application (`https://github.com/elemasamuel/devops-bootcamp-java-maven-app.git`). Choose the credentials created in step 1 of the Freestyle project above. Open the "Add" dropdown under "Discover branches" and select "Filter by name (with regular expression)". Enter .* to select all branches.
 
 As soon as you press the "Save" button, Jenkins scans the Git repository for all branches containing a Jenkinsfile, creates related pipelines and starts the builds.
 
