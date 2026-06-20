@@ -32,7 +32,7 @@ git add .
 git commit -m "Initial commit"
 
 # create git repository on GitHub push your newly created local repository to it
-git remote add origin git@github.com:fsiegrist/devops-bootcamp-node-project.git
+git remote add origin git@github.com:elemasamuel/devops-bootcamp-node-project.git
 # rename master branch of original Gitlab repository to main (default on GitHub)
 git branch -M main
 # push your newly created local repository to it
@@ -146,9 +146,9 @@ Step 4: Add a stage for building and pushing the Docker image\
 stage('Build and Push Docker Image') {
     steps {
         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-            sh "docker build -t fsiegrist/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION} ."
+            sh "docker build -t elemasamuel/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION} ."
             sh "echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin"
-            sh "docker push fsiegrist/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION}"
+            sh "docker push elemasamuel/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION}"
         }
     }
 }
@@ -163,7 +163,7 @@ stage('Commit Version Update') {
                 sh 'git config user.email "jenkins@example.com"'
                 sh 'git config user.name "jenkins"'
 
-                sh "git remote set-url origin https://${USERNAME}:${PASSWORD}@github.com/fsiegrist/devops-bootcamp-node-project.git"
+                sh "git remote set-url origin https://${USERNAME}:${PASSWORD}@github.com/elemasamuel/devops-bootcamp-node-project.git"
                 sh 'git add app/package.json'
                 sh 'git commit -m "ci: version bump"'
                 sh 'git push origin HEAD:main'
@@ -197,7 +197,7 @@ Step 2: Execute the following commands:
 docker login
 # enter username and password for Docker-Hub
 
-docker run -p3000:3000 -d fsiegrist/fesi-repo:devops-bootcamp-node-project-1.0.2-11
+docker run -p3000:3000 -d elemasamuel/fesi-repo:devops-bootcamp-node-project-1.0.2-11
 ```
 
 Step 3: Open port 3000\
@@ -222,7 +222,7 @@ Therefore, you do the following:
 - Extract all logic into Jenkins-shared-library with parameters and reference it in Jenkinsfile.
 
 **Steps to solve the tasks:**
-We can reuse and extend the Jenkins Shared Library on [GitHub](https://github.com/fsiegrist/devops-bootcamp-jenkins-shared-library.git) created in [demo project 3](./demo-projects/3-create-shared-library/).
+We can reuse and extend the Jenkins Shared Library on [GitHub](https://github.com/elemasamuel/devops-bootcamp-jenkins-shared-library.git) created in [demo project 3](./demo-projects/3-create-shared-library/).
 
 Step 1: Extract code for the 'Bump Version' stage\
 To make the logic reusable for other node projects, we pass in two parameters:
@@ -268,7 +268,7 @@ def call(String appDir) {
 Replace the content of the `script` block in the 'Run Tests' stage with `runNpmTests('app')`.
 
 Step 3: Reuse shared library code for the 'Build and Push Docker Image' stage\
-The shared library function `buildAndPublishImage` we created for the demo project 3 can be reused as is. Just replace the content of the `script` block in the 'Build and Push Docker Image' stage with `buildAndPublishImage("fsiegrist/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION}")`.
+The shared library function `buildAndPublishImage` we created for the demo project 3 can be reused as is. Just replace the content of the `script` block in the 'Build and Push Docker Image' stage with `buildAndPublishImage("elemasamuel/fesi-repo:devops-bootcamp-node-project-${IMAGE_VERSION}")`.
 
 Step 4: Extract code for the 'Commit Version Update' stage\
 Create a new file called `commitAndPushVersionUpdate.groovy` in the `vars` folder with the following content:
@@ -290,7 +290,7 @@ def call(String gitRepo, String credentialsId, String branch) {
 }
 ```
 
-Replace the content of the `script` block in the 'Commit Version Update' stage with `commitAndPushVersionUpdate('github.com/fsiegrist/devops-bootcamp-node-project.git', 'GitHub', 'shared-library')`. ('shared-library' is the name of the branch used for the modifications of the Jenkinsfile calling shared library functions.)
+Replace the content of the `script` block in the 'Commit Version Update' stage with `commitAndPushVersionUpdate('github.com/elemasamuel/devops-bootcamp-node-project.git', 'GitHub', 'shared-library')`. ('shared-library' is the name of the branch used for the modifications of the Jenkinsfile calling shared library functions.)
 
 </details>
 
