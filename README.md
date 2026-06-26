@@ -57,6 +57,10 @@ docker volume inspect jenkins_home
 # the path is displayed as "Mountpoint" -> /var/lib/docker/volumes/jenkins_home/_data
 cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
+or search for the password
+```
+docker logs <container-id> 2>&1 | grep -A 2 "Please use the following password"
+```
 
 Open Jenkins in the browser under `http://<droplet-ip>:8080`, enter the initial administrator password and install the suggested plugins. After creating a first admin user, the initialization of Jenkins is done and the welcome screen is displayed.
 
